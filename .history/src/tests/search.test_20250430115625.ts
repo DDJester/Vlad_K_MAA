@@ -41,7 +41,7 @@ test('Verify item visibility in CSR search', async ({ page, browser }) => {
 
         const name = await itemPage.fillItemName('Vlad Offline Item');
         await itemPage.saveAndHandleDialog();
-        await itemPage.verifyStatusOffline();
+        await itemPage.verifyStatusOffline();        
         await itemPage.locateAndVerifyInTree(name);
         await itemPage.verifyOfflineItemColor(name);
         return name;
@@ -65,7 +65,7 @@ test('Verify item visibility in CSR search', async ({ page, browser }) => {
 
             // Verify ONLINE item IS visible
             await csrSearchPage.verifyItemVisible(onlineItemName);
-
+            
             // Verify OFFLINE item is NOT visible
             await csrSearchPage.verifyItemNotVisible(offlineItemName);
         });

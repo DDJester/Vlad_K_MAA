@@ -1,6 +1,5 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './basePage';
-import 'dotenv/config';
 
 export class LoginVlad extends BasePage {
   readonly usernameField: Locator;

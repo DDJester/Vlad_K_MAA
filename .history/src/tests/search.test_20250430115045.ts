@@ -3,6 +3,7 @@ import { LoginVlad } from '../pages/Loginvlad';
 import { DashboardPage } from '../pages/DashboardPage';
 import { ItemPage } from '../pages/ItemPage';
 import { CSRSearchPage } from '../pages/CSRSearchPage';
+import 'dotenv/config';
 
 test('Verify item visibility in CSR search', async ({ page, browser }) => {
     const loginPage = new LoginVlad(page);
@@ -11,14 +12,14 @@ test('Verify item visibility in CSR search', async ({ page, browser }) => {
 
     // 1. Login as admin
     await loginPage.navigateToLogin();
-    await loginPage.login('vlad', 'tesT1.');
+    await loginPage.login(process.env.ADMIN_LOGIN!, process.env.ADMIN_PASSWORD!);
     await loginPage.goToLayout();
 
     // 2. Create Online item (сохраняем имя для проверки)
     const onlineItemName = await test.step('Create Online item', async () => {
         await dashboardPage.rightClickFolder();
         await dashboardPage.createNewItem();
-        await dashboardPage.searchAndSelectItem('vlad');
+        await dashboardPage.searchAndSelectItem(process.env.ADMIN_LOGIN!);
         await dashboardPage.clickNext();
         await dashboardPage.clickSkip();
 
@@ -35,13 +36,13 @@ test('Verify item visibility in CSR search', async ({ page, browser }) => {
     const offlineItemName = await test.step('Create Offline item', async () => {
         await dashboardPage.rightClickFolder();
         await dashboardPage.createNewItem();
-        await dashboardPage.searchAndSelectItem('vlad');
+        await dashboardPage.searchAndSelectItem('process.env.ADMIN_LOGIN!');
         await dashboardPage.clickNext();
         await dashboardPage.clickSkip();
 
         const name = await itemPage.fillItemName('Vlad Offline Item');
         await itemPage.saveAndHandleDialog();
-        await itemPage.verifyStatusOffline();
+        await itemPage.verifyStatusOffline();        
         await itemPage.locateAndVerifyInTree(name);
         await itemPage.verifyOfflineItemColor(name);
         return name;
@@ -55,17 +56,17 @@ test('Verify item visibility in CSR search', async ({ page, browser }) => {
         const csrSearchPage = new CSRSearchPage(csrPage);
 
         await csrLoginPage.navigateToLogin();
-        await csrLoginPage.login('csr', 'csr');
+        await csrLoginPage.login(process.env.CSR_LOGIN!, process.env.CSR_PASSWORD!);
         await csrLoginPage.goToLayout();
 
         // 4.1 Search for items
         await test.step('Search and verify items', async () => {
             await csrPage.waitForTimeout(2000); // Wait for UI stabilization
-            await csrSearchPage.searchWithWait('Vlad');
+            await csrSearchPage.searchWithWait(process.env.ADMIN_LOGIN!);
 
             // Verify ONLINE item IS visible
             await csrSearchPage.verifyItemVisible(onlineItemName);
-
+            
             // Verify OFFLINE item is NOT visible
             await csrSearchPage.verifyItemNotVisible(offlineItemName);
         });
