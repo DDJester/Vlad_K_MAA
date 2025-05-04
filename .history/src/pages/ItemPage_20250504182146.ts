@@ -18,23 +18,6 @@ export class ItemPage extends BasePage {
     this.updateButton = page.getByRole('button', { name: 'Update' });
   }
 
-  async openitemtab(): Promise<void> {
-    await this.page.locator('iframe[name="itemscope"]').contentFrame().getByRole('link', { name: '1' }).click();
-  }
-
-  async addimagetoexternalfield(): Promise<void> {
-    await this.page.locator('iframe[name="itemscope"]').contentFrame().locator('#item-update-tab-1 div').filter({ hasText: 'Browse' }).nth(4).click();
-    await this.page.locator('div').filter({ hasText: /^download045\.jpeg$/ }).first().click();
-    await this.page.getByRole('button', { name: 'Select file' }).click();
-  }
-
-  async checkaddedimagetoexternalfield(): Promise<void> {
-    const frame = this.page.frameLocator('iframe[name="itemscope"]');
-    const img = frame.locator('.file-widget-preview-thumbnail[src*="b6e0bfe5-a305-40c2-9b74-d81d80bf5f5f"]');
-    await expect(img).toHaveAttribute(
-      'src',
-      'https://kmsqacm.lighthouse-cloud.com:443/kms/lh/archive/externalFiles/b6e0bfe5-a305-40c2-9b74-d81d80bf5f5f.jpeg');
-  }
 
   async fillItemName(name: string): Promise<string> {
     const uniqueId = Date.now();
@@ -141,7 +124,7 @@ export class ItemPage extends BasePage {
       await this.page.screenshot({ path: 'online-color-error.png' });
       throw new Error(`Некорректный цвет Online элемента. Ожидался 0a0c0d, получен: ${actualColor}`);
     }
-  }
+}
 
   async verifyStatusOffline(): Promise<void> {
     const statusText = this.frame.locator('.iw-dropdown-value-container .selection-container span');

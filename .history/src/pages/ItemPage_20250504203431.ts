@@ -33,7 +33,7 @@ export class ItemPage extends BasePage {
     const img = frame.locator('.file-widget-preview-thumbnail[src*="b6e0bfe5-a305-40c2-9b74-d81d80bf5f5f"]');
     await expect(img).toHaveAttribute(
       'src',
-      'https://kmsqacm.lighthouse-cloud.com:443/kms/lh/archive/externalFiles/b6e0bfe5-a305-40c2-9b74-d81d80bf5f5f.jpeg');
+      'https://kmsqacm.lighthouse-cloud.com:443/kms/lh/archive/externalFiles/a305-40c2-9b74-d81d80bf5f5f.jpeg');
   }
 
   async fillItemName(name: string): Promise<string> {
