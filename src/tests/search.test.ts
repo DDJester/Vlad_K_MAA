@@ -10,11 +10,7 @@ test('Verify item visibility in CSR search', async ({ page, browser }) => {
     const dashboardPage = new DashboardPage(page);
     const itemPage = new ItemPage(page);
 
-    console.log('BASE_URL:', process.env.BASE_URL);
-    console.log('LOGIN_URL:', process.env.LOGIN_URL);
-
-    // 1. Login as admin
-    console.log('BASE_URL:', process.env.BASE_URL);
+    // 1. Login as CM
     await loginPage.navigateToLogin(); // URL берётся из .env
     await loginPage.CMLogin(); // Креды берутся из .env
     await loginPage.goToLayout();

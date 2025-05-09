@@ -1,0 +1,18 @@
+{
+    "name": "playwrightstuff",
+    "version": "1.0.0",
+    "scripts": {
+        "clean": "rimraf allure-results",
+        "serve": "allure serve allure-results -p 8081",
+        "test:run": "npm test --file=%npm_config_file% --flags=%npm_config_flags%",
+        "test:debug": "npm test --file=%npm_config_file% --flags=\"--debug %npm_config_flags%\""
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.52.0",
+        "allure-commandline": "^2.34.0",
+        "allure-playwright": "^3.2.1",
+        "dotenv": "^16.5.0",
+        "rimraf": "^5.0.5",
+        "@types/node": "^20.0.0"
+    }
+}

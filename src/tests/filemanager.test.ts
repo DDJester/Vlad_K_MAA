@@ -4,7 +4,7 @@ import { DashboardPage } from '../pages/DashboardPage';
 import { ItemPage } from '../pages/ItemPage';
 import 'dotenv/config';
 
-test('Verify item visibility in CSR search', async ({ page, browser }) => {
+test('Verify image adding to an item', async ({ page, browser }) => {
     const loginPage = new LoginVlad(page);
     const dashboardPage = new DashboardPage(page);
     const itemPage = new ItemPage(page);
@@ -29,7 +29,5 @@ test('Verify item visibility in CSR search', async ({ page, browser }) => {
         await itemPage.checkaddedimagetoexternalfield();
         await itemPage.saveAndHandleDialog();
         await itemPage.verifyStatusOnline();
-    });
-
-    
+    });    
 });

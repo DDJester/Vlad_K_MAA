@@ -52,14 +52,20 @@ export class LoginVlad extends BasePage {
     await this.fill(this.usernameField, process.env.CM_USERNAME);
     await this.fill(this.passwordField, process.env.CM_PASSWORD);
     await this.click(this.submitButton);
+    await this.expectToBeVisible(this.layoutButton, 15000);
+    //await this.page.waitForURL(/kms\/lh/);
     await this.expectUrl(`${process.env.BASE_URL}${process.env.DASHBOARD_URL}`);
     await this.expectToBeVisible(this.layoutButton);
+
   }
 
   async goToLayout(): Promise<void> {
     if (!process.env.LAYOUT_URL) {
       throw new Error('LAYOUT_URL not defined in .env');
     }
+    
+    await this.expectToBeVisible(this.layoutButton, 15000);
+    await this.expectToBeEnabled(this.layoutButton);
     await this.click(this.layoutButton);
     await this.expectUrl(/LAYOUT/);
   }

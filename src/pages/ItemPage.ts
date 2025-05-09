@@ -8,6 +8,8 @@ export class ItemPage extends BasePage {
   readonly notificationDialog: Locator;
   readonly updateButton: Locator;
   readonly itemtitle: Locator;
+  readonly successNotification = this.page.locator('.save-success');
+readonly savingIndicator = this.page.locator('.saving-indicator');
 
   constructor(page: Page) {
     super(page);
@@ -93,16 +95,35 @@ export class ItemPage extends BasePage {
   }
 
   async saveAndHandleDialog(): Promise<void> {
-    await this.forceBlur();
-    await this.expectToBeVisible(this.saveButton);
-    await this.click(this.saveButton);
+    // 1. Ожидаем стабильности перед сохранением
+    await this.page.waitForLoadState('networkidle');
+    //await this.wait(1000); // Дополнительная пауза
 
-    if (await this.notificationDialog.isVisible().catch(() => false)) {
-      await this.expectToBeVisible(this.updateButton);
-      await this.click(this.updateButton);
-      console.log('Closed notification dialog');
+    // 2. Убедимся, что кнопка действительно кликабельна
+    await this.expectToBeVisible(this.saveButton, 15000);
+    await this.expectToBeEnabled(this.saveButton);
+    
+    // 3. Клик с расширенной обработкой
+    await this.clickWithRetry(this.saveButton, {
+        maxRetries: 5, // Увеличили количество попыток
+        timeout: 15000,
+        preAction: async () => {
+            await this.forceBlur();
+            await this.wait(500);
+        }
+    });
+
+    // 4. Ожидаем либо диалог, либо успешное сохранение
+    try {
+        await this.notificationDialog.waitFor({ state: 'visible', timeout: 2000 });
+        await this.click(this.updateButton, { timeout: 2000 });
+        console.log('Closed notification dialog');
+    } catch (error) {
+        console.log('Notification dialog did not appear');
     }
-  }
+
+    
+}
 
   private async forceBlur(): Promise<void> {
     await this.page.evaluate(() => {

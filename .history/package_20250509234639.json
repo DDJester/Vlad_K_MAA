@@ -1,0 +1,17 @@
+{
+  "name": "playwrightstuff",
+  "version": "1.0.0",
+  "scripts": {
+    "clean": "rimraf allure-results",
+    "test": "playwright test",
+    "report": "allure serve allure-results -p 8081",
+    "test:ui": "npm run clean && playwright test --headed --project=chromium filemanager.test.ts && npm run report || npm run report",
+    "test:any": "npm run clean && playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "allure-commandline": "^2.34.0",
+    "allure-playwright": "^3.2.1",
+    "rimraf": "^5.0.5"
+  }
+}
