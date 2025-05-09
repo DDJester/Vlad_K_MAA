@@ -61,6 +61,6 @@ export class LoginVlad extends BasePage {
       throw new Error('LAYOUT_URL not defined in .env');
     }
     await this.click(this.layoutButton);
-    await this.expectUrl(/LAYOUT/);
+    await this.expectUrl(new RegExp(process.env.LAYOUT_URL));
   }
 }

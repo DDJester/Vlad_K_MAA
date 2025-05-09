@@ -2,7 +2,6 @@ import { test } from '@playwright/test';
 import { LoginVlad } from '../pages/Loginvlad';
 import { DashboardPage } from '../pages/DashboardPage';
 import { ItemPage } from '../pages/ItemPage';
-import 'dotenv/config';
 
 test('Verify item visibility in CSR search', async ({ page, browser }) => {
     const loginPage = new LoginVlad(page);

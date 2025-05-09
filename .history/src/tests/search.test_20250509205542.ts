@@ -3,7 +3,13 @@ import { LoginVlad } from '../pages/Loginvlad';
 import { DashboardPage } from '../pages/DashboardPage';
 import { ItemPage } from '../pages/ItemPage';
 import { CSRSearchPage } from '../pages/CSRSearchPage';
-import 'dotenv/config';
+import dotenv from 'dotenv';
+import path from 'path';
+
+// Загружаем .env из папки config
+dotenv.config({ path: path.resolve(__dirname, 'config/.env') });
+console.log('BASE_URL:', process.env.BASE_URL);
+
 
 test('Verify item visibility in CSR search', async ({ page, browser }) => {
     const loginPage = new LoginVlad(page);

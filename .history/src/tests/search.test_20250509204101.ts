@@ -3,15 +3,11 @@ import { LoginVlad } from '../pages/Loginvlad';
 import { DashboardPage } from '../pages/DashboardPage';
 import { ItemPage } from '../pages/ItemPage';
 import { CSRSearchPage } from '../pages/CSRSearchPage';
-import 'dotenv/config';
 
 test('Verify item visibility in CSR search', async ({ page, browser }) => {
     const loginPage = new LoginVlad(page);
     const dashboardPage = new DashboardPage(page);
     const itemPage = new ItemPage(page);
-
-    console.log('BASE_URL:', process.env.BASE_URL);
-    console.log('LOGIN_URL:', process.env.LOGIN_URL);
 
     // 1. Login as admin
     console.log('BASE_URL:', process.env.BASE_URL);

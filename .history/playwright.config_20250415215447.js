@@ -12,13 +12,6 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
-
-import dotenv from 'dotenv';
-import path from 'path';
-
-// Загружаем .env из папки config
-dotenv.config({ path: path.resolve(__dirname, 'config/.env') });
-
 export default defineConfig({
   testDir: './src/tests',
   /* Run tests in files in parallel */

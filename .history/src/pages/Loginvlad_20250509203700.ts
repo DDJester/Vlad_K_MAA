@@ -1,10 +1,6 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './basePage';
-import dotenv from 'dotenv';
-import path from 'path';
-
-// Загрузка .env из кастомной папки
-dotenv.config({ path: path.join(__dirname, '../../config/.env') });
+import 'dotenv/config';
 
 export class LoginVlad extends BasePage {
   readonly usernameField: Locator;
@@ -21,19 +17,14 @@ export class LoginVlad extends BasePage {
   }
 
   async navigateToLogin(): Promise<void> {
-  if (!process.env.BASE_URL || !process.env.LOGIN_URL) {
-    console.error('Current working directory:', process.cwd());
-    console.error('Environment variables:', process.env);
-    throw new Error('BASE_URL or LOGIN_URL not defined. Check .env path and variables');
+    if (!process.env.BASE_URL || !process.env.LOGIN_URL) {
+      throw new Error('BASE_URL or LOGIN_URL not defined in .env');
+    }
+    await this.page.goto(`${process.env.BASE_URL}${process.env.LOGIN_URL}`);
+    await this.expectToBeVisible(this.usernameField);
   }
-  
-  const fullUrl = `${process.env.BASE_URL}${process.env.LOGIN_URL}`;
-  console.log('Navigating to:', fullUrl); // Для отладки
-  await this.page.goto(fullUrl);
-  await this.expectToBeVisible(this.usernameField);
-}
 
-  async CSRLogin(): Promise<void> {
+  async csrLogin(): Promise<void> {
     if (!process.env.CSR_USERNAME || !process.env.CSR_PASSWORD) {
       throw new Error('CSR credentials not defined in .env');
     }
@@ -45,7 +36,7 @@ export class LoginVlad extends BasePage {
     await this.expectToBeVisible(this.layoutButton);
   }
 
-  async CMLogin(): Promise<void> {
+  async CMlogin(): Promise<void> {
     if (!process.env.CM_USERNAME || !process.env.CM_PASSWORD) {
       throw new Error('Admin credentials not defined in .env');
     }
@@ -61,6 +52,6 @@ export class LoginVlad extends BasePage {
       throw new Error('LAYOUT_URL not defined in .env');
     }
     await this.click(this.layoutButton);
-    await this.expectUrl(/LAYOUT/);
+    await this.expectUrl(new RegExp(process.env.LAYOUT_URL));
   }
 }
