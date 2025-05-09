@@ -67,6 +67,7 @@ export class LoginVlad extends BasePage {
     await this.expectToBeVisible(this.layoutButton, 15000);
     await this.expectToBeEnabled(this.layoutButton);
     await this.click(this.layoutButton);
+    await this.page.waitForLoadState('load');
     await this.expectUrl(/LAYOUT/);
   }
 }
