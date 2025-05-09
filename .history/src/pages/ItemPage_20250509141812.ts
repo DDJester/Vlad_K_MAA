@@ -60,17 +60,12 @@ export class ItemPage extends BasePage {
       for (let attempt = 1; attempt <= maxRetries; attempt++) {
         try {
           console.log(`Attempt ${attempt} to click Offline`);
-          await frame.locator('body').waitFor({ state: 'attached' });
-          const offlineElement = frame.locator('.selection-container');
+          const offlineElement = frame.locator('.iw-dropdown-select-container');
           await offlineElement.waitFor({ state: 'visible', timeout: 5000 });
           await expect(offlineElement).toBeEnabled();
-          //await expect(offlineElement).not.toHaveClass(/disabled/);
-          await expect(offlineElement).not.toHaveAttribute('aria-disabled', 'true');
           await offlineElement.scrollIntoViewIfNeeded();
-          await offlineElement.hover();
-
-          await offlineElement.click({ force: true, trial: true, delay: 200 });
-          await frame.locator('.iw-dropdown-filter-container').waitFor({ state: 'visible', timeout: 5000 });
+          await offlineElement.click({ force: true, timeout: 5000 });
+          await frame.locator('.iw-dropdown-filter-container').waitFor({ state: 'visible', timeout: 2000 });
           return;
         } catch (error) {
           console.warn(`Attempt ${attempt} failed:`, error instanceof Error ? error.message : String(error));

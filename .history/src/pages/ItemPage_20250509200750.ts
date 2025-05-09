@@ -64,7 +64,7 @@ export class ItemPage extends BasePage {
           const offlineElement = frame.locator('.selection-container');
           await offlineElement.waitFor({ state: 'visible', timeout: 5000 });
           await expect(offlineElement).toBeEnabled();
-          //await expect(offlineElement).not.toHaveClass(/disabled/);
+          await expect(offlineElement).not.toHaveClass(/disabled/);
           await expect(offlineElement).not.toHaveAttribute('aria-disabled', 'true');
           await offlineElement.scrollIntoViewIfNeeded();
           await offlineElement.hover();
