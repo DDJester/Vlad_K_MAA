@@ -1,0 +1,10 @@
+Navigating to: https://kmsqacm.lighthouse-cloud.com/kms/lh/login
+Created entity: Vlad Online Item 1746882944014
+Attempt 1 to click Offline
+Notification dialog did not appear
+Цвет Online элемента: rgb(10, 12, 13)
+Created entity: Vlad Offline Item 1746882954571
+Notification dialog did not appear
+Цвет Offline элемента: rgb(255, 0, 0)
+Navigating to: https://kmsqacm.lighthouse-cloud.com/kms/lh/login
+Attempt 1 to find item "Vlad Online Item 1746882944014"

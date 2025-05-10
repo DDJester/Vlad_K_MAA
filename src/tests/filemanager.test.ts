@@ -1,18 +1,15 @@
-import { test } from '@playwright/test';
+/*import { test } from '@playwright/test';
 import { LoginVlad } from '../pages/Loginvlad';
 import { DashboardPage } from '../pages/DashboardPage';
-import { ItemPage } from '../pages/ItemPage';
+import { ItemPage } from '../pages/ItemPage'; */
+import { test } from '../fixtures';
 import 'dotenv/config';
 
-test('Verify image adding to an item', async ({ page, browser }) => {
-    const loginPage = new LoginVlad(page);
-    const dashboardPage = new DashboardPage(page);
-    const itemPage = new ItemPage(page);
-
-    // 1. Login as admin
-    await loginPage.navigateToLogin(); // URL берётся из .env
-    await loginPage.CMLogin(); // Креды берутся из .env
-    await loginPage.goToLayout();
+test('Verify image adding to an item', async ({ 
+  dashboardPage, 
+  itemPage,
+  authCM: _authCM
+}) => {
 
     // 2. Create Online item (сохраняем имя для проверки)
     const onlineItemName = await test.step('Create Online item', async () => {
