@@ -1,0 +1,24 @@
+Making login request to: https://kmsqacm.lighthouse-cloud.com/kms/lh/api/login
+Received cookies: [
+  {
+    name: 'XSRF-TOKEN',
+    value: 'c00153c6-7866-4d0c-8715-593398105a32',
+    domain: 'kmsqacm.lighthouse-cloud.com',
+    path: '/kms',
+    expires: -1,
+    httpOnly: false,
+    secure: false,
+    sameSite: 'Lax'
+  },
+  {
+    name: 'SESSION',
+    value: 'OWY2OWQzNzQtYjJlMi00ZmMwLWJlOTItOTE3YmNhMGViNDU1',
+    domain: 'kmsqacm.lighthouse-cloud.com',
+    path: '/',
+    expires: -1,
+    httpOnly: true,
+    secure: true,
+    sameSite: 'None'
+  }
+]
+Navigating to dashboard: https://kmsqacm.lighthouse-cloud.com/kms/lh

@@ -12,6 +12,11 @@ export const test = baseTest.extend<{
   itemPage: ItemPage;
   csrSearchPage: CSRSearchPage;
 
+  apiAuth: {
+    token: string;
+    userId: string;
+  };
+
   getCSRContext: () => Promise<{
     page: Page;
     csrSearchPage: CSRSearchPage;
@@ -28,6 +33,9 @@ export const test = baseTest.extend<{
     csrSearchPage: CSRSearchPage;
   };
 }>({
+
+  
+
   // Инициализация страниц
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginVlad(page);

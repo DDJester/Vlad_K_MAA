@@ -1,0 +1,85 @@
+# Test info
+
+- Name: API Login Tests >> API login + UI verification
+- Location: M:\PlaywrightStuff\src\tests\apiLogin.test.ts:32:7
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 400
+    at M:\PlaywrightStuff\src\tests\apiLogin.test.ts:53:32
+```
+
+# Test source
+
+```ts
+   1 | import { test, expect } from '../fixtures';
+   2 | import dotenv from 'dotenv';
+   3 | import path from 'path';
+   4 |
+   5 | // Загружаем переменные окружения из .env файла
+   6 | dotenv.config({ path: path.join(__dirname, '../.env') });
+   7 |
+   8 | test.describe('API Login Tests', () => {
+   9 |   test('Successful login with valid credentials', async ({ loginPage }) => {
+  10 |     // Получаем credentials из .env
+  11 |     const username = process.env.CM_USERNAME;
+  12 |     const password = process.env.CM_PASSWORD;
+  13 |
+  14 |     if (!username || !password) {
+  15 |       throw new Error('CM_USERNAME or CM_PASSWORD not defined in .env file');
+  16 |     }
+  17 |
+  18 |     // Выполняем API запрос
+  19 |     const response = await loginPage.apiLogin(username, password);
+  20 |     
+  21 |     // Проверяем структуру ответа
+  22 |     expect(response).toEqual({
+  23 |       status: "SUCCESS",
+  24 |       data: expect.any(String)
+  25 |     });
+  26 |     
+  27 |     // Проверяем конкретные значения
+  28 |     expect(response.status).toBe("SUCCESS");
+  29 |     expect(response.data).toBe("vlad");
+  30 |   });
+  31 |
+  32 |   test('API login + UI verification', async ({ page }) => {
+  33 |   // 1. Получаем конфигурацию
+  34 |   const {
+  35 |     BASE_URL,
+  36 |     API_LOGIN_PATH,
+  37 |     UI_DASHBOARD_PATH,
+  38 |     CM_USERNAME,
+  39 |     CM_PASSWORD
+  40 |   } = process.env;
+  41 |
+  42 |   if (!BASE_URL || !CM_USERNAME || !CM_PASSWORD) {
+  43 |     throw new Error('Missing required environment variables');
+  44 |   }
+  45 |
+  46 |   // 2. API-логин
+  47 |   const apiResponse = await page.request.post(`${BASE_URL}${API_LOGIN_PATH}`, {
+  48 |     data: { username: CM_USERNAME, password: CM_PASSWORD },
+  49 |     headers: { 'Content-Type': 'application/json' }
+  50 |   });
+  51 |
+  52 |   // 3. Проверка ответа
+> 53 |   expect(apiResponse.status()).toBe(200);
+     |                                ^ Error: expect(received).toBe(expected) // Object.is equality
+  54 |   const { status, data } = await apiResponse.json();
+  55 |   expect(status).toBe("SUCCESS");
+  56 |   expect(data).toBe(CM_USERNAME); // Используем CM_USERNAME для проверки
+  57 |
+  58 |   // 4. Переход на UI
+  59 |   await page.goto(`${BASE_URL}${UI_DASHBOARD_PATH}`);
+  60 |   
+  61 |   // 5. Проверка элементов
+  62 |   await expect(page.locator('#kms-login-to-layout-button')).toBeVisible();
+  63 |   await expect(page.locator('.user-name')).toHaveText(CM_USERNAME);
+  64 | });
+  65 | });
+```
