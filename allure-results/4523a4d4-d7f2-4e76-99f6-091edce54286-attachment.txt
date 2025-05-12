@@ -1,0 +1,3 @@
+Navigating to: https://kmsqacm.lighthouse-cloud.com/kms/lh/login
+Created entity: Vlad Online Item 1747078628341
+Attempt 1 to click Offline

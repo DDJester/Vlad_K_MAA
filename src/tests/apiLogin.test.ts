@@ -95,5 +95,6 @@ test.describe('API Login Tests', () => {
     await expect(page).toHaveURL(new RegExp(DASHBOARD_URL.replace(/\//g, '\\/')));
 
     console.log('TEST COMPLETED SUCCESSFULLY');
+    
   });
 });

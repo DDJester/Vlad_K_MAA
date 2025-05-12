@@ -77,7 +77,7 @@ export class LoginVlad extends BasePage {
     await this.click(this.submitButton);
     await this.expectToBeVisible(this.layoutButton, 15000);
     //await this.page.waitForURL(/kms\/lh/);
-    await this.expectUrl(`${process.env.BASE_URL}${process.env.DASHBOARD_URL}`);
+    await this.expectUrl(`${process.env.DASHBOARD_URL}`);
     await this.expectToBeVisible(this.layoutButton);
 
   }
@@ -86,8 +86,6 @@ export class LoginVlad extends BasePage {
     if (!process.env.LAYOUT_URL) {
       throw new Error('LAYOUT_URL not defined in .env');
     }
-
-    await this.expectToBeVisible(this.layoutButton, 15000);
     await this.expectToBeEnabled(this.layoutButton);
     await this.click(this.layoutButton);
     await this.page.waitForLoadState('load');
